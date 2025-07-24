@@ -1,4 +1,4 @@
-import LoginPage from '../support/page_objects/LoginPage';
+import LoginPage from '../../support/page_objects/LoginPage';
 
 describe('Login Test Case', () => {
     it('Login with valid credentials', () => {
