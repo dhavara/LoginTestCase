@@ -1,6 +1,6 @@
 import LoginPage from '../../support/page_objects/LoginPage';
 
-describe('Login Test Case', () => {
+describe('Login Test Case with POM', () => {
     it('Login with valid credentials', () => {
         LoginPage.interceptLoginPage('loginRequest1');
         LoginPage.visit();
@@ -11,7 +11,7 @@ describe('Login Test Case', () => {
         LoginPage.assertLoginSuccess();
     });
 
-    it('fails with invalid credentials', () => {
+    it('Fails with Invalid Credentials', () => {
         LoginPage.interceptLoginPage('loginRequest2');
         LoginPage.visit();
         LoginPage.enterUsername('InvalidUser');
@@ -21,7 +21,7 @@ describe('Login Test Case', () => {
         LoginPage.assertLoginFailure();
     });
 
-    it('fails with empty credentials', () => {
+    it('Fails with Empty Credentials', () => {
         LoginPage.interceptLoginPage('loginRequest3');
         LoginPage.visit();
         LoginPage.clickLogin();
@@ -29,7 +29,7 @@ describe('Login Test Case', () => {
         LoginPage.assertRequiredMessage();
     });
 
-    it('fails with empty username', () => {
+    it('Fails with Empty Username', () => {
         LoginPage.interceptLoginPage('loginRequest4');
         LoginPage.visit();
         LoginPage.enterPassword('admin123');
@@ -38,12 +38,49 @@ describe('Login Test Case', () => {
         LoginPage.assertRequiredMessage();
     });
 
-    it('fails with empty password', () => {
+    it('Fails with Empty Password', () => {
         LoginPage.interceptLoginPage('loginRequest5');
         LoginPage.visit();
         LoginPage.enterUsername('Admin');
         LoginPage.clickLogin();
         cy.wait('@loginRequest5').its('response.statusCode').should('eq', 200);
         LoginPage.assertRequiredMessage();
+    });
+
+    it('Click Forgot Password', () => {
+        LoginPage.visit();
+        LoginPage.clickForgotPassword();
+        LoginPage.enterUsername('Admin');
+        LoginPage.clickResetPassword();
+    });
+
+    it('Menu Dashboard Performance Tab', () => {
+        LoginPage.interceptLoginPage('loginRequest1');
+        LoginPage.visit();
+        LoginPage.enterUsername('Admin');
+        LoginPage.enterPassword('admin123');
+        LoginPage.clickLogin();
+        LoginPage.verifyDashboard();
+        LoginPage.clickPerformance();
+    });
+
+    it('Menu Dashboard Recruitment Tab', () => {
+        LoginPage.interceptLoginPage('loginRequest1');
+        LoginPage.visit();
+        LoginPage.enterUsername('Admin');
+        LoginPage.enterPassword('admin123');
+        LoginPage.clickLogin();
+        LoginPage.verifyDashboard();
+        LoginPage.clickRecruitment();
+    });
+
+    it('Menu Dashboard My Info Tab', () => {
+        LoginPage.interceptLoginPage('loginRequest1');
+        LoginPage.visit();
+        LoginPage.enterUsername('Admin');
+        LoginPage.enterPassword('admin123');
+        LoginPage.clickLogin();
+        LoginPage.verifyDashboard();
+        LoginPage.clickMyInfo();
     });
 });

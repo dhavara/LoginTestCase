@@ -26,6 +26,24 @@ class LoginPage {
     assertLoginFailure() {
         cy.get('.oxd-alert-content').should('contain', 'Invalid credentials');
     }
+    clickForgotPassword() {
+        cy.get('.oxd-text.oxd-text--p.orangehrm-login-forgot-header').click();
+    }
+    clickResetPassword() {
+        cy.get('button[type="submit"]').click();
+    }
+    verifyDashboard(){
+        cy.url().should('include', '/dashboard');
+    }
+    clickPerformance(){
+        cy.get('.oxd-main-menu-item:contains("Performance")').click();
+    }
+    clickRecruitment(){
+        cy.get('.oxd-main-menu-item:contains("Recruitment")').click();
+    }
+    clickMyInfo(){
+        cy.get('.oxd-main-menu-item:contains("My Info")').click();
+    }
 }
 
 export default new LoginPage();
